@@ -1,7 +1,8 @@
 {
   "name": "Iron Log",
   "short_name": "Iron Log",
-  "start_url": "./gymtracker.html",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#121316",
