@@ -1,21 +1,21 @@
 {
   "name": "Iron Log",
   "short_name": "Iron Log",
-  "start_url": "/GymTracker/index.html",
-  "scope": "/GymTracker/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#121316",
   "theme_color": "#121316",
   "icons": [
     {
-      "src": "/GymTracker/icon.png",
+      "src": "./icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/GymTracker/icon.png",
+      "src": "./icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

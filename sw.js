@@ -1,9 +1,9 @@
 const CACHE_NAME = 'iron-log-v2';
 const ASSETS = [
-  '/GymTracker/',
-  '/GymTracker/index.html',
-  '/GymTracker/manifest.json',
-  '/GymTracker/icon.png'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon.png'
 ];
 
 self.addEventListener('install', (e) => {
