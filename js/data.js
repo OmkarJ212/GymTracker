@@ -9,42 +9,42 @@ var THEMES = {
     name: "Nike Volt",
     type: "light",
     desc: "Chalk & Green",
-    metaColor: "#f3f4f6"
+    metaColor: "#f4f5f8"
   },
   "strava-blaze": {
     id: "strava-blaze",
     name: "Strava Blaze",
     type: "light",
     desc: "Sand & Orange",
-    metaColor: "#faf8f5"
+    metaColor: "#f8f6f3"
   },
   "apple-fitness": {
     id: "apple-fitness",
     name: "Apple Fitness",
     type: "light",
     desc: "Silver & Blue",
-    metaColor: "#f1f5f9"
+    metaColor: "#f3f5f9"
   },
   "titanium-slate": {
     id: "titanium-slate",
     name: "Titanium Slate",
     type: "dark",
     desc: "Graphite & Orange",
-    metaColor: "#121316"
+    metaColor: "#0d0e12"
   },
   "cyber-hud": {
     id: "cyber-hud",
     name: "Cyber HUD",
     type: "dark",
     desc: "Navy & Cyan",
-    metaColor: "#0b0f17"
+    metaColor: "#07090f"
   },
   "rogue-iron": {
     id: "rogue-iron",
     name: "Rogue Iron",
     type: "dark",
     desc: "Matte & Crimson",
-    metaColor: "#0e0e11"
+    metaColor: "#09090c"
   }
 };
 

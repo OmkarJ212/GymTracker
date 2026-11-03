@@ -77,7 +77,7 @@ function renderTodayView() {
         "</div>" +
         "<div>" +
         (hasLogged
-          ? '<span class="badge badge-done">✓ ' + sess.sets.length + " Sets Done</span>"
+          ? '<span class="badge badge-done"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:-1px; margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg>' + sess.sets.length + " Sets Done</span>"
           : '<span class="badge badge-pending">Tap to Log</span>') +
         "</div>" +
         "</div>";
@@ -125,6 +125,23 @@ function renderTodayView() {
       ? 100
       : 0;
   document.getElementById("todayProgressFill").style.width = pct + "%";
+
+  var badgeEl = document.getElementById("todayProgressBadge");
+  if (badgeEl) {
+    if (totalCount === 0 && completedCount === 0) {
+      badgeEl.textContent = "Rest Day";
+      badgeEl.style.color = "var(--text-faint)";
+      badgeEl.style.background = "var(--surface2)";
+    } else if (pct === 100) {
+      badgeEl.textContent = "Complete";
+      badgeEl.style.color = "var(--accent)";
+      badgeEl.style.background = "var(--accent-subtle)";
+    } else {
+      badgeEl.textContent = pct + "% Done";
+      badgeEl.style.color = "var(--accent)";
+      badgeEl.style.background = "var(--accent-subtle)";
+    }
+  }
 }
 
 var todayListWrap = document.getElementById("todayExerciseList");
@@ -205,7 +222,8 @@ function renderPlanView() {
 
         var rm = document.createElement("button");
         rm.className = "day-chip-del";
-        rm.textContent = "✕";
+        rm.setAttribute("aria-label", "Remove exercise");
+        rm.innerHTML = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
         rm.addEventListener("click", function (e) {
           e.stopPropagation();
           state.weeklyPlan[dayIdx] = state.weeklyPlan[dayIdx].filter(function (x) {
@@ -518,7 +536,7 @@ function renderLibraryView() {
   libListWrap.innerHTML = "";
   if (!items.length) {
     libListWrap.innerHTML =
-      '<div class="empty-state"><div class="big">🏋️</div>No exercises found.<br>Try adding a custom one.</div>';
+      '<div class="empty-state"><div class="empty-icon"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>No exercises found.<br>Try adding a custom one.</div>';
     return;
   }
   var byCat = {};
@@ -540,10 +558,10 @@ function renderLibraryView() {
       card.className = "ex-card";
       var actionHtml = '<div class="ex-actions">';
       actionHtml +=
-        '<button class="btn-watch-lib" title="Watch Form Tutorial">🎬</button>';
+        '<button class="btn-watch-lib" title="Watch Form Tutorial" aria-label="Watch Form Tutorial"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg></button>';
       if (ex.id.indexOf("custom-") === 0) {
         actionHtml +=
-          '<button class="del-custom" data-id="' + ex.id + '" title="Delete">🗑</button>';
+          '<button class="del-custom" data-id="' + ex.id + '" title="Delete" aria-label="Delete"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>';
       }
       actionHtml += "</div>";
 

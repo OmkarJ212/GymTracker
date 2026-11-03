@@ -186,7 +186,7 @@ function renderSetsUI() {
         '<div class="set-field"><label>Grade (%)</label><input type="number" min="0" inputmode="decimal" step="0.5" value="' +
         (set.g !== undefined ? set.g : "") +
         '" data-k="g"/></div>' +
-        '<button class="set-del">✕</button>';
+        '<button class="set-del" aria-label="Delete set"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>';
 
       row.querySelector('[data-k="t"]').addEventListener("input", function (e) {
         set.t = e.target.value;
@@ -222,7 +222,7 @@ function renderSetsUI() {
         '<div class="set-field"><label>Reps</label><input type="number" min="1" inputmode="numeric" value="' +
         set.r +
         '" data-k="r"/></div>' +
-        '<button class="set-del">✕</button>';
+        '<button class="set-del" aria-label="Delete set"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>';
 
       var wInput = row.querySelector('[data-k="w"]');
       var rInput = row.querySelector('[data-k="r"]');
@@ -566,7 +566,7 @@ function renderPickerList(term) {
       "</div></div>" +
       (isFreestylePick
         ? '<div style="font-size:13px; font-weight:800; color:var(--accent);">Select ›</div>'
-        : '<div class="picker-check' + (on ? " on" : "") + '">✓</div>');
+        : '<div class="picker-check' + (on ? " on" : "") + '"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>');
 
     row.addEventListener("click", function (e) {
       e.preventDefault();

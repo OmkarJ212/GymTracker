@@ -48,39 +48,58 @@
     });
 
   function closeDrawer() {
-    drawer.classList.remove("open");
-    drawerScrim.classList.remove("open");
+    if (drawer) drawer.classList.remove("open");
+    if (drawerScrim) drawerScrim.classList.remove("open");
   }
 
-  menuBtn.addEventListener("click", function () {
-    drawer.classList.add("open");
-    drawerScrim.classList.add("open");
-  });
-
-  drawerScrim.addEventListener("click", closeDrawer);
-
-  navItems.forEach(function (item) {
-    item.addEventListener("click", function () {
-      navItems.forEach(function (n) {
-        n.classList.remove("active");
-      });
-      item.classList.add("active");
-
-      var targetId = item.getAttribute("data-target");
-      document.querySelectorAll(".view").forEach(function (v) {
-        v.classList.remove("active");
-      });
-      document.getElementById(targetId).classList.add("active");
-
-      if (targetId === "viewToday") renderTodayView();
-      if (targetId === "viewPlan") renderPlanView();
-      if (targetId === "viewAnalytics") renderAnalyticsView();
-      if (targetId === "viewPR") renderPRView();
-      if (targetId === "viewLibrary") renderLibraryView();
-      if (targetId === "viewSettings") renderSettingsView();
-
-      closeDrawer();
+  if (menuBtn) {
+    menuBtn.addEventListener("click", function () {
+      if (drawer) drawer.classList.add("open");
+      if (drawerScrim) drawerScrim.classList.add("open");
     });
+  }
+
+  if (drawerScrim) {
+    drawerScrim.addEventListener("click", closeDrawer);
+  }
+
+  function switchView(targetId) {
+    if (!targetId) return;
+    document.querySelectorAll(".nav-item").forEach(function (n) {
+      if (n.getAttribute("data-target") === targetId) {
+        n.classList.add("active");
+      } else {
+        n.classList.remove("active");
+      }
+    });
+
+    document.querySelectorAll(".view").forEach(function (v) {
+      v.classList.remove("active");
+    });
+    var targetEl = document.getElementById(targetId);
+    if (targetEl) targetEl.classList.add("active");
+
+    if (targetId === "viewToday") renderTodayView();
+    if (targetId === "viewPlan") renderPlanView();
+    if (targetId === "viewAnalytics") renderAnalyticsView();
+    if (targetId === "viewPR") renderPRView();
+    if (targetId === "viewLibrary") renderLibraryView();
+    if (targetId === "viewSettings") renderSettingsView();
+
+    closeDrawer();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  window.switchToView = switchView;
+
+  document.addEventListener("click", function (e) {
+    var item = e.target.closest(".nav-item");
+    if (item) {
+      var targetId = item.getAttribute("data-target");
+      if (targetId) {
+        switchView(targetId);
+      }
+    }
   });
 
   /* ---------------- Global Keyboard Shortcuts ---------------- */
