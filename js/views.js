@@ -38,10 +38,21 @@ function renderTodayView() {
 
   if (!validTodayIds.length) {
     listEl.innerHTML =
-      '<div class="empty-state" style="padding:36px 10px;">' +
-      "Rest Day — Nothing scheduled in your routine.<br>" +
-      "Use the button below to log an extra or freestyle workout." +
-      "</div>";
+      '<div class="rest-card">' +
+      '<div class="rest-icon-wrap">' +
+      '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>' +
+      '<path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>' +
+      '<line x1="6" y1="1" x2="6" y2="4"></line>' +
+      '<line x1="10" y1="1" x2="10" y2="4"></line>' +
+      '<line x1="14" y1="1" x2="14" y2="4"></line>' +
+      '</svg>' +
+      '</div>' +
+      '<div class="rest-content">' +
+      '<div class="rest-title">Rest &amp; Recovery</div>' +
+      '<div class="rest-desc">Nothing scheduled for today. Take time to rest and grow, or start a freestyle exercise below if you are training.</div>' +
+      '</div>' +
+      '</div>';
   } else {
     validTodayIds.forEach(function (id) {
       var ex = exById(id);
@@ -116,28 +127,34 @@ function renderTodayView() {
   }
 
   var totalCount = validTodayIds.length;
-  document.getElementById("todayProgressText").innerHTML =
-    completedCount + " <span>/ " + totalCount + " Done</span>";
-  var pct =
-    totalCount > 0
-      ? Math.round((completedCount / totalCount) * 100)
-      : completedCount > 0
-      ? 100
-      : 0;
-  document.getElementById("todayProgressFill").style.width = pct + "%";
+  var fillEl = document.getElementById("todayProgressFill");
+  var barEl = fillEl ? fillEl.parentElement : null;
+
+  if (totalCount === 0) {
+    document.getElementById("todayProgressText").innerHTML =
+      'Rest Day <span style="font-size:14px; font-weight:600; color:var(--text-faint);">· Active Recovery</span>';
+    if (barEl) barEl.style.display = "none";
+  } else {
+    if (barEl) barEl.style.display = "block";
+    document.getElementById("todayProgressText").innerHTML =
+      completedCount + " <span>/ " + totalCount + " Done</span>";
+    var pct = Math.round((completedCount / totalCount) * 100);
+    fillEl.style.width = pct + "%";
+  }
 
   var badgeEl = document.getElementById("todayProgressBadge");
   if (badgeEl) {
-    if (totalCount === 0 && completedCount === 0) {
+    if (totalCount === 0) {
       badgeEl.textContent = "Rest Day";
-      badgeEl.style.color = "var(--text-faint)";
+      badgeEl.style.color = "var(--text-dim)";
       badgeEl.style.background = "var(--surface2)";
-    } else if (pct === 100) {
+    } else if (completedCount >= totalCount) {
       badgeEl.textContent = "Complete";
       badgeEl.style.color = "var(--accent)";
       badgeEl.style.background = "var(--accent-subtle)";
     } else {
-      badgeEl.textContent = pct + "% Done";
+      var pctDone = Math.round((completedCount / totalCount) * 100);
+      badgeEl.textContent = pctDone + "% Done";
       badgeEl.style.color = "var(--accent)";
       badgeEl.style.background = "var(--accent-subtle)";
     }

@@ -505,6 +505,44 @@ header {
 }
 
 /* Today Exercise Cards */
+.rest-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 12px;
+}
+.rest-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.rest-content {
+  flex: 1;
+}
+.rest-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.rest-desc {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-dim);
+}
+
 .today-ex-card {
   background: var(--surface);
   border: 1px solid var(--border);
