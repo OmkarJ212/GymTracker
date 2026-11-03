@@ -476,11 +476,12 @@ header {
 
 .freestyle-btn {
   width: 100%;
-  padding: 14px;
+  padding: 13px 16px;
   border-radius: var(--radius);
-  border: 1.5px dashed var(--accent-dim);
-  background: var(--accent-subtle);
-  color: var(--accent);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
   font-weight: 700;
   font-size: 13.5px;
   cursor: pointer;
@@ -490,10 +491,17 @@ header {
   justify-content: center;
   gap: 8px;
   transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  box-shadow: var(--card-shadow);
+}
+.freestyle-btn svg {
+  color: var(--accent);
+}
+.freestyle-btn:hover {
+  background: var(--surface2);
+  border-color: var(--border-focus);
 }
 .freestyle-btn:active {
-  transform: scale(0.98);
-  background: var(--accent-dim);
+  transform: scale(0.985);
 }
 
 /* Today Exercise Cards */
