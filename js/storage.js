@@ -6,6 +6,9 @@ function applyTheme(themeId) {
   if (typeof THEMES === "undefined" || !THEMES[themeId]) {
     themeId = typeof DEFAULT_THEME !== "undefined" ? DEFAULT_THEME : "nike-volt";
   }
+  try {
+    localStorage.setItem("ironlog.theme", themeId);
+  } catch (e) {}
   document.documentElement.setAttribute("data-theme", themeId);
   var metaTheme = document.querySelector('meta[name="theme-color"]');
   if (metaTheme && typeof THEMES !== "undefined" && THEMES[themeId]) {
@@ -58,6 +61,7 @@ function save() {
   saveTimer = setTimeout(function () {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify(state));
+      if (state.theme) localStorage.setItem("ironlog.theme", state.theme);
     } catch (e) {}
   }, 400);
 }
@@ -65,6 +69,7 @@ function save() {
 function forceSave() {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify(state));
+    if (state.theme) localStorage.setItem("ironlog.theme", state.theme);
   } catch (e) {}
 }
 
@@ -74,6 +79,7 @@ var cachedExMap = null;
 function invalidateExCache() {
   cachedAllExercises = null;
   cachedExMap = null;
+  invalidatePrMemo();
 }
 
 function allExercises() {
@@ -129,9 +135,31 @@ function getDateForDayIndex(targetDayIdx) {
   );
 }
 
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var ctx = this;
+    var args = arguments;
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(ctx, args);
+    }, delay);
+  };
+}
+
+var SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function fmtDateShort(str) {
-  var d = new Date(str + "T00:00:00");
-  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  if (!str) return "";
+  var parts = str.split("-");
+  if (parts.length === 3) {
+    var m = parseInt(parts[1], 10);
+    var d = parseInt(parts[2], 10);
+    if (m >= 1 && m <= 12 && !isNaN(d)) {
+      return SHORT_MONTHS[m - 1] + " " + d;
+    }
+  }
+  var dateObj = new Date(str + "T00:00:00");
+  return dateObj.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
 function getStartOfDay(d) {
@@ -156,20 +184,38 @@ function escapeHtml(s) {
   });
 }
 
+var prMemoCache = {};
+
+function invalidatePrMemo(id) {
+  if (id) {
+    delete prMemoCache[id];
+  } else {
+    prMemoCache = {};
+  }
+}
+
 function bestHistoricalWeightFor(id, targetDate) {
   var arr = state.logs[id];
-  if (!arr) return null;
-  var best = null;
+  if (!arr || !arr.length) return null;
   var target = targetDate || todayStr();
-  arr
-    .filter(function (s) {
-      return s.date !== target;
-    })
-    .forEach(function (sess) {
-      sess.sets.forEach(function (s) {
+  
+  if (prMemoCache[id] && prMemoCache[id][target] !== undefined) {
+    return prMemoCache[id][target];
+  }
+
+  var best = null;
+  for (var i = 0; i < arr.length; i++) {
+    var sess = arr[i];
+    if (sess && sess.date !== target && sess.sets) {
+      for (var j = 0; j < sess.sets.length; j++) {
+        var s = sess.sets[j];
         var wKg = toKg(s.w, s.unit);
         if (best === null || wKg > best) best = wKg;
-      });
-    });
+      }
+    }
+  }
+
+  if (!prMemoCache[id]) prMemoCache[id] = {};
+  prMemoCache[id][target] = best;
   return best;
 }

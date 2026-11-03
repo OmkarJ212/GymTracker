@@ -17,8 +17,11 @@
 <script>
   (function() {
     try {
-      var raw = localStorage.getItem("ironlog.v2");
-      var t = raw ? JSON.parse(raw).theme : null;
+      var t = localStorage.getItem("ironlog.theme");
+      if (!t) {
+        var raw = localStorage.getItem("ironlog.v2");
+        t = raw ? JSON.parse(raw).theme : null;
+      }
       if (!t) t = "nike-volt";
       document.documentElement.setAttribute("data-theme", t);
     } catch(e) {
@@ -389,6 +392,7 @@
     <!-- Responsive 16:9 Video Wrapper -->
     <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:12px; background:#000;">
       <iframe id="videoIframe" 
+              loading="lazy"
               style="position:absolute; top:0; left:0; width:100%; height:100%; border:0; display:none;" 
               src="" 
               referrerpolicy="strict-origin-when-cross-origin"
@@ -458,10 +462,10 @@
 </div>
 
 <!-- Application JavaScript Modules -->
-<script src="js/data.js?v=3.2"></script>
-<script src="js/storage.js?v=3.2"></script>
-<script src="js/sheets.js?v=3.2"></script>
-<script src="js/views.js?v=3.2"></script>
-<script src="js/app.js?v=3.2"></script>
+<script defer src="js/data.js?v=3.2"></script>
+<script defer src="js/storage.js?v=3.2"></script>
+<script defer src="js/sheets.js?v=3.2"></script>
+<script defer src="js/views.js?v=3.2"></script>
+<script defer src="js/app.js?v=3.2"></script>
 </body>
 </html>

@@ -357,7 +357,10 @@ function renderAnalyticsView() {
     if (isCardio(ex)) return;
 
     state.logs[exId].forEach(function (sess) {
-      var sessDate = new Date(sess.date + "T00:00:00");
+      if (!sess || !sess.date || typeof sess.date !== "string") return;
+      var parts = sess.date.split("-");
+      if (parts.length !== 3) return;
+      var sessDate = new Date(parts[0], parts[1] - 1, parts[2]);
       var daysDiff = Math.round((todayStart - sessDate) / (1000 * 60 * 60 * 24));
 
       sess.sets.forEach(function (set) {
@@ -413,10 +416,16 @@ function renderAnalyticsView() {
 
 /* ---------------- Personal Records View ---------------- */
 var prSearchTerm = "";
-document.getElementById("prSearch").addEventListener("input", function (e) {
-  prSearchTerm = e.target.value.trim().toLowerCase();
-  renderPRView();
-});
+var prSearchEl = document.getElementById("prSearch");
+if (prSearchEl) {
+  prSearchEl.addEventListener(
+    "input",
+    debounce(function () {
+      prSearchTerm = prSearchEl.value.trim().toLowerCase();
+      renderPRView();
+    }, 150)
+  );
+}
 
 function renderPRView() {
   var prs = [];
@@ -555,10 +564,16 @@ CATS.forEach(function (c) {
   libChipsWrap.appendChild(el);
 });
 
-document.getElementById("libSearch").addEventListener("input", function (e) {
-  libSearchTerm = e.target.value.trim().toLowerCase();
-  renderLibraryView();
-});
+var libSearchEl = document.getElementById("libSearch");
+if (libSearchEl) {
+  libSearchEl.addEventListener(
+    "input",
+    debounce(function () {
+      libSearchTerm = libSearchEl.value.trim().toLowerCase();
+      renderLibraryView();
+    }, 150)
+  );
+}
 
 function renderLibraryView() {
   var items = allExercises().filter(function (ex) {
@@ -773,7 +788,7 @@ document.getElementById("importDataInput").addEventListener("change", function (
 
 /* ---------------- Refresh All Active Views ---------------- */
 function refreshViews() {
-  renderTodayView();
+  if (document.getElementById("viewToday").classList.contains("active")) renderTodayView();
   if (document.getElementById("viewPlan").classList.contains("active")) renderPlanView();
   if (document.getElementById("viewAnalytics").classList.contains("active")) renderAnalyticsView();
   if (document.getElementById("viewPR").classList.contains("active")) renderPRView();

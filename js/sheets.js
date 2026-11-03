@@ -190,15 +190,15 @@ function renderSetsUI() {
 
       row.querySelector('[data-k="t"]').addEventListener("input", function (e) {
         set.t = e.target.value;
-        syncCommittedToStorage();
+        syncCommittedToStorage({ skipDomRefresh: true });
       });
       row.querySelector('[data-k="s"]').addEventListener("input", function (e) {
         set.s = e.target.value;
-        syncCommittedToStorage();
+        syncCommittedToStorage({ skipDomRefresh: true });
       });
       row.querySelector('[data-k="g"]').addEventListener("input", function (e) {
         set.g = e.target.value;
-        syncCommittedToStorage();
+        syncCommittedToStorage({ skipDomRefresh: true });
       });
     } else {
       row.style.gridTemplateColumns = "24px 1fr 1fr 28px";
@@ -236,11 +236,11 @@ function renderSetsUI() {
           toKg(val, state.unit) > priorBest &&
           val > 0;
         row.classList.toggle("is-pr", nowPr);
-        syncCommittedToStorage();
+        syncCommittedToStorage({ skipDomRefresh: true });
       });
       rInput.addEventListener("input", function () {
         set.r = rInput.value;
-        syncCommittedToStorage();
+        syncCommittedToStorage({ skipDomRefresh: true });
       });
     }
 
@@ -346,7 +346,11 @@ document.getElementById("addSetBtn").addEventListener("click", function () {
   renderPRBanner();
 });
 
-function syncCommittedToStorage() {
+function syncCommittedToStorage(options) {
+  var skipDom = options && options.skipDomRefresh;
+  if (currentEx && typeof invalidatePrMemo === "function") {
+    invalidatePrMemo(currentEx.id);
+  }
   var t = currentLogDate;
   var cardio = isCardio(currentEx);
   var validSets = [];
@@ -404,11 +408,13 @@ function syncCommittedToStorage() {
   save();
   renderPRBanner();
 
-  if (document.getElementById("viewToday").classList.contains("active")) {
-    renderTodayView();
-  }
-  if (document.getElementById("viewPlan").classList.contains("active")) {
-    renderPlanView();
+  if (!skipDom) {
+    if (document.getElementById("viewToday").classList.contains("active")) {
+      renderTodayView();
+    }
+    if (document.getElementById("viewPlan").classList.contains("active")) {
+      renderPlanView();
+    }
   }
 }
 
@@ -592,9 +598,12 @@ function renderPickerList(term) {
   });
 }
 
-pickerSearch.addEventListener("input", function () {
-  renderPickerList(pickerSearch.value);
-});
+pickerSearch.addEventListener(
+  "input",
+  debounce(function () {
+    renderPickerList(pickerSearch.value);
+  }, 150)
+);
 
 /* ---------------- Add Custom Exercise Sheet ---------------- */
 var addFab = document.getElementById("addExerciseFab");
@@ -664,7 +673,8 @@ document.getElementById("newExName").addEventListener("keydown", function (e) {
 function setupSheetDrag(sheetEl, dragHandles) {
   var startY = 0,
     currentDelta = 0,
-    isDragging = false;
+    isDragging = false,
+    rafId = null;
 
   function start(y) {
     isDragging = true;
@@ -676,12 +686,23 @@ function setupSheetDrag(sheetEl, dragHandles) {
   function move(y) {
     if (!isDragging) return;
     currentDelta = Math.max(0, y - startY);
-    sheetEl.style.transform = "translate3d(0," + currentDelta + "px,0)";
+    if (!rafId) {
+      rafId = requestAnimationFrame(function () {
+        if (isDragging) {
+          sheetEl.style.transform = "translate3d(0," + currentDelta + "px,0)";
+        }
+        rafId = null;
+      });
+    }
   }
 
   function end() {
     if (!isDragging) return;
     isDragging = false;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
     sheetEl.style.transition = "transform .28s cubic-bezier(.32,.72,0,1)";
     if (currentDelta > 100) {
       if (sheetEl.id === "videoSheet") {

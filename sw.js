@@ -1,13 +1,19 @@
-const CACHE_NAME = 'iron-log-v10';
+const CACHE_NAME = 'iron-log-v11';
 const ASSETS = [
   './',
   './index.html',
   './css/styles.css',
+  './css/styles.css?v=3.2',
   './js/data.js',
+  './js/data.js?v=3.2',
   './js/storage.js',
+  './js/storage.js?v=3.2',
   './js/sheets.js',
+  './js/sheets.js?v=3.2',
   './js/views.js',
+  './js/views.js?v=3.2',
   './js/app.js',
+  './js/app.js?v=3.2',
   './manifest.json',
   './icon.png'
 ];
@@ -33,7 +39,7 @@ self.addEventListener('fetch', (e) => {
   // Do not intercept external / third-party requests (e.g. YouTube embeds)
   if (!e.request.url.startsWith(self.location.origin)) return;
 
-  // For HTML documents, always fetch fresh from network first so changes are immediate
+  // For HTML documents, fetch from network first so updates are discovered, with cache fallback
   if (e.request.mode === 'navigate' || e.request.destination === 'document') {
     e.respondWith(
       fetch(e.request)
@@ -44,23 +50,38 @@ self.addEventListener('fetch', (e) => {
           }
           return response;
         })
-        .catch(() => caches.match(e.request))
+        .catch(() => caches.match(e.request, { ignoreSearch: true }))
     );
     return;
   }
 
-  // Network-first for styles and scripts with query params, or cache fallback
+  // Exact cache match first for speed & reliability, falling back to network fetch + cache update,
+  // or ignoreSearch cache fallback when offline.
   e.respondWith(
-    fetch(e.request)
-      .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
-          var responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(e.request, responseToCache);
-          });
-        }
-        return networkResponse;
-      })
-      .catch(() => caches.match(e.request))
+    caches.match(e.request).then((exactMatch) => {
+      if (exactMatch) {
+        // Stale-While-Revalidate: serve cached immediately, update in background
+        fetch(e.request)
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              var copy = networkResponse.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(e.request, copy));
+            }
+          })
+          .catch(() => {});
+        return exactMatch;
+      }
+
+      // If not in cache (e.g. a new version query param), fetch from network
+      return fetch(e.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            var responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(e.request, responseToCache));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(e.request, { ignoreSearch: true }));
+    })
   );
 });
