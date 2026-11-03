@@ -1,19 +1,19 @@
-const CACHE_NAME = 'iron-log-v12';
+const CACHE_NAME = 'iron-log-v13';
 const ASSETS = [
   './',
   './index.html',
   './css/styles.css',
-  './css/styles.css?v=3.3',
+  './css/styles.css?v=3.4',
   './js/data.js',
-  './js/data.js?v=3.3',
+  './js/data.js?v=3.4',
   './js/storage.js',
-  './js/storage.js?v=3.3',
+  './js/storage.js?v=3.4',
   './js/sheets.js',
-  './js/sheets.js?v=3.3',
+  './js/sheets.js?v=3.4',
   './js/views.js',
-  './js/views.js?v=3.3',
+  './js/views.js?v=3.4',
   './js/app.js',
-  './js/app.js?v=3.3',
+  './js/app.js?v=3.4',
   './manifest.json',
   './icon.png'
 ];

@@ -6,42 +6,42 @@ var LS_KEY = "ironlog.v2";
 var THEMES = {
   "nike-volt": {
     id: "nike-volt",
-    name: "Nike Volt",
+    name: "Green",
     type: "light",
     desc: "Chalk & Green",
     metaColor: "#f4f5f8"
   },
   "strava-blaze": {
     id: "strava-blaze",
-    name: "Strava Blaze",
+    name: "Orange",
     type: "light",
     desc: "Sand & Orange",
     metaColor: "#f8f6f3"
   },
   "apple-fitness": {
     id: "apple-fitness",
-    name: "Apple Fitness",
+    name: "Blue",
     type: "light",
     desc: "Silver & Blue",
     metaColor: "#f3f5f9"
   },
   "onyx-volt": {
     id: "onyx-volt",
-    name: "Onyx Volt",
+    name: "Dark Green",
     type: "dark",
     desc: "Onyx & Green",
     metaColor: "#0d0e12"
   },
   "cyber-hud": {
     id: "cyber-hud",
-    name: "Cyber HUD",
+    name: "Dark Cyan",
     type: "dark",
     desc: "Navy & Cyan",
     metaColor: "#07090f"
   },
   "rogue-iron": {
     id: "rogue-iron",
-    name: "Rogue Iron",
+    name: "Dark Red",
     type: "dark",
     desc: "Matte & Crimson",
     metaColor: "#09090c"
