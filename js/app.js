@@ -27,51 +27,22 @@
     });
   }
 
-  /* ---------------- Drawer Navigation ---------------- */
-  var menuBtn = document.getElementById("menuBtn");
-  var drawer = document.getElementById("mainDrawer");
-  var drawerScrim = document.getElementById("drawerScrim");
-  var navItems = document.querySelectorAll(".nav-item");
-
-  window.updateDrawerProfileUI = function () {
-    document.getElementById("drawerProfileName").textContent =
-      state.profile.name || "User";
-    document.getElementById("drawerProfileWeight").textContent =
-      state.profile.weight ? state.profile.weight + " " + state.unit : "—";
-  };
-  updateDrawerProfileUI();
-
-  document
-    .getElementById("drawerHeaderProfile")
-    .addEventListener("click", function () {
-      document.querySelector('.nav-item[data-target="viewSettings"]').click();
-    });
-
-  function closeDrawer() {
-    if (drawer) drawer.classList.remove("open");
-    if (drawerScrim) drawerScrim.classList.remove("open");
-  }
-
-  if (menuBtn) {
-    menuBtn.addEventListener("click", function () {
-      if (drawer) drawer.classList.add("open");
-      if (drawerScrim) drawerScrim.classList.add("open");
-    });
-  }
-
-  if (drawerScrim) {
-    drawerScrim.addEventListener("click", closeDrawer);
-  }
-
+  /* ---------------- Navigation ---------------- */
   function switchView(targetId) {
     if (!targetId) return;
-    document.querySelectorAll(".nav-item").forEach(function (n) {
-      if (n.getAttribute("data-target") === targetId) {
-        n.classList.add("active");
+
+    document.querySelectorAll(".dock-tab").forEach(function (tab) {
+      if (tab.getAttribute("data-target") === targetId) {
+        tab.classList.add("active");
       } else {
-        n.classList.remove("active");
+        tab.classList.remove("active");
       }
     });
+
+    var headerProfileBtn = document.getElementById("headerProfileBtn");
+    if (headerProfileBtn) {
+      headerProfileBtn.classList.toggle("active", targetId === "viewSettings");
+    }
 
     document.querySelectorAll(".view").forEach(function (v) {
       v.classList.remove("active");
@@ -86,21 +57,21 @@
     if (targetId === "viewLibrary") renderLibraryView();
     if (targetId === "viewSettings") renderSettingsView();
 
-    closeDrawer();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   window.switchToView = switchView;
 
   document.addEventListener("click", function (e) {
-    var item = e.target.closest(".nav-item");
-    if (item) {
-      var targetId = item.getAttribute("data-target");
-      if (targetId) {
-        switchView(targetId);
-      }
+    var tab = e.target.closest(".dock-tab, #headerProfileBtn, [data-target]");
+    if (tab && tab.getAttribute("data-target")) {
+      switchView(tab.getAttribute("data-target"));
     }
   });
+
+  window.updateDrawerProfileUI = function () {
+    // Legacy stub for views.js calls
+  };
 
   /* ---------------- Global Keyboard Shortcuts ---------------- */
   window.addEventListener("keydown", function (e) {

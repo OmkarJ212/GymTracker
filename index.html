@@ -33,19 +33,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Stylesheet -->
-<link rel="stylesheet" href="css/styles.css?v=2.2">
+<link rel="stylesheet" href="css/styles.css?v=3.0">
 </head>
 <body>
 <div id="app">
   <header>
     <div class="header-left">
-      <button class="menu-btn" id="menuBtn" aria-label="Open Navigation Menu">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
       <div class="brand">
         <div class="brand-icon-wrap">
           <svg class="brand-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -63,89 +56,17 @@
       </div>
     </div>
     <div class="header-right">
+      <button class="header-action-btn" id="headerProfileBtn" data-target="viewSettings" aria-label="Profile & Settings" title="Profile & Settings">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="4"></circle>
+          <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path>
+        </svg>
+      </button>
       <button class="theme-quick-btn" id="themeQuickBtn" aria-label="Toggle Light/Dark Theme" title="Toggle Theme">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
       </button>
     </div>
   </header>
-
-  <!-- Drawer -->
-  <div class="drawer-scrim" id="drawerScrim"></div>
-  <nav class="drawer" id="mainDrawer">
-    <div class="drawer-header" id="drawerHeaderProfile">
-      <div class="drawer-avatar">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="7" r="4"></circle>
-          <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path>
-        </svg>
-      </div>
-      <div>
-        <h2 id="drawerProfileName">User</h2>
-        <p id="drawerProfileWeight">—</p>
-      </div>
-    </div>
-    <div class="drawer-nav">
-      <button class="nav-item active" data-target="viewToday">
-        <span class="nav-item-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-          </svg>
-        </span>
-        Today's Workout
-      </button>
-      <button class="nav-item" data-target="viewPlan">
-        <span class="nav-item-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-        </span>
-        Weekly Plan
-      </button>
-      <button class="nav-item" data-target="viewAnalytics">
-        <span class="nav-item-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-            <polyline points="16 7 22 7 22 13"></polyline>
-          </svg>
-        </span>
-        Weekly Analytics
-      </button>
-      <button class="nav-item" data-target="viewPR">
-        <span class="nav-item-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="8" r="7"></circle>
-            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-          </svg>
-        </span>
-        Personal Records
-      </button>
-      <button class="nav-item" data-target="viewLibrary">
-        <span class="nav-item-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="6" y1="5" x2="6" y2="19"></line>
-            <line x1="18" y1="5" x2="18" y2="19"></line>
-            <line x1="2" y1="9" x2="2" y2="15"></line>
-            <line x1="22" y1="9" x2="22" y2="15"></line>
-            <line x1="6" y1="12" x2="18" y2="12"></line>
-          </svg>
-        </span>
-        Exercise Library
-      </button>
-      <hr class="drawer-divider">
-      <button class="nav-item" data-target="viewSettings">
-        <span class="nav-item-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-          </svg>
-        </span>
-        Profile & Settings
-      </button>
-    </div>
-  </nav>
 
   <!-- Views -->
   
@@ -348,6 +269,59 @@
     </div>
   </div>
 
+  <!-- Floating Bottom Navigation Dock -->
+  <nav class="bottom-dock" id="bottomNav">
+    <button class="dock-tab active" data-target="viewToday" aria-label="Today">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+      </div>
+      <span class="dock-label">Today</span>
+    </button>
+    <button class="dock-tab" data-target="viewPlan" aria-label="Weekly Plan">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+      </div>
+      <span class="dock-label">Plan</span>
+    </button>
+    <button class="dock-tab" data-target="viewAnalytics" aria-label="Weekly Analytics">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+          <polyline points="16 7 22 7 22 13"></polyline>
+        </svg>
+      </div>
+      <span class="dock-label">Stats</span>
+    </button>
+    <button class="dock-tab" data-target="viewPR" aria-label="Personal Records">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="7"></circle>
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+        </svg>
+      </div>
+      <span class="dock-label">PRs</span>
+    </button>
+    <button class="dock-tab" data-target="viewLibrary" aria-label="Exercise Library">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="6" y1="5" x2="6" y2="19"></line>
+          <line x1="18" y1="5" x2="18" y2="19"></line>
+          <line x1="2" y1="9" x2="2" y2="15"></line>
+          <line x1="22" y1="9" x2="22" y2="15"></line>
+          <line x1="6" y1="12" x2="18" y2="12"></line>
+        </svg>
+      </div>
+      <span class="dock-label">Library</span>
+    </button>
+  </nav>
+
 </div>
 
 <div class="sheet-scrim" id="scrim"></div>
@@ -481,10 +455,10 @@
 </div>
 
 <!-- Application JavaScript Modules -->
-<script src="js/data.js?v=2.2"></script>
-<script src="js/storage.js?v=2.2"></script>
-<script src="js/sheets.js?v=2.2"></script>
-<script src="js/views.js?v=2.2"></script>
-<script src="js/app.js?v=2.2"></script>
+<script src="js/data.js?v=3.0"></script>
+<script src="js/storage.js?v=3.0"></script>
+<script src="js/sheets.js?v=3.0"></script>
+<script src="js/views.js?v=3.0"></script>
+<script src="js/app.js?v=3.0"></script>
 </body>
 </html>
