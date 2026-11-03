@@ -33,7 +33,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Stylesheet -->
-<link rel="stylesheet" href="css/styles.css?v=3.0">
+<link rel="stylesheet" href="css/styles.css?v=3.1">
 </head>
 <body>
 <div id="app">
@@ -123,21 +123,24 @@
   </div>
 
   <div id="viewLibrary" class="view">
-    <div class="search-wrap">
-      <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
-      <input class="search" id="libSearch" placeholder="Search exercises…" />
+    <div class="search-row">
+      <div class="search-wrap" style="flex:1; margin-bottom:0;">
+        <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input class="search" id="libSearch" placeholder="Search exercises…" style="margin-bottom:0;" />
+      </div>
+      <button class="add-lib-btn" id="addExerciseFab" aria-label="Add custom exercise" title="New Exercise">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>New</span>
+      </button>
     </div>
-    <div class="chips" id="libChips"></div>
+    <div class="chips" id="libChips" style="margin-top:12px;"></div>
     <main id="libListWrap"></main>
-    <button class="fab" id="addExerciseFab" aria-label="Add custom exercise">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="5" x2="12" y2="19"></line>
-        <line x1="5" y1="12" x2="19" y2="12"></line>
-      </svg>
-    </button>
   </div>
 
   <div id="viewSettings" class="view">
@@ -455,10 +458,10 @@
 </div>
 
 <!-- Application JavaScript Modules -->
-<script src="js/data.js?v=3.0"></script>
-<script src="js/storage.js?v=3.0"></script>
-<script src="js/sheets.js?v=3.0"></script>
-<script src="js/views.js?v=3.0"></script>
-<script src="js/app.js?v=3.0"></script>
+<script src="js/data.js?v=3.1"></script>
+<script src="js/storage.js?v=3.1"></script>
+<script src="js/sheets.js?v=3.1"></script>
+<script src="js/views.js?v=3.1"></script>
+<script src="js/app.js?v=3.1"></script>
 </body>
 </html>

@@ -846,6 +846,45 @@ header {
 }
 
 /* ==================== SEARCH & WRAPPERS ==================== */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.search-row .search-wrap {
+  flex: 1;
+  margin-bottom: 0;
+}
+.add-lib-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.add-lib-btn svg {
+  color: var(--accent);
+}
+.add-lib-btn:hover {
+  background: var(--surface-2);
+  border-color: var(--border-focus);
+}
+.add-lib-btn:active {
+  transform: scale(0.97);
+}
+
 .search-wrap {
   position: relative;
   display: flex;
@@ -1030,27 +1069,7 @@ header {
   justify-content: center;
 }
 
-.fab {
-  position: fixed;
-  right: 20px;
-  bottom: calc(88px + env(safe-area-inset-bottom));
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--accent-fg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px var(--accent-glow);
-  z-index: 34;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.fab:active {
-  transform: scale(0.92);
-}
+
 
 /* ==================== PERSONAL RECORDS VIEW ==================== */
 .pr-list {
