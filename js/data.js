@@ -3,6 +3,53 @@
  */
 var LS_KEY = "ironlog.v2";
 
+var THEMES = {
+  "nike-volt": {
+    id: "nike-volt",
+    name: "Nike Volt",
+    type: "light",
+    desc: "Chalk & Green",
+    metaColor: "#f3f4f6"
+  },
+  "strava-blaze": {
+    id: "strava-blaze",
+    name: "Strava Blaze",
+    type: "light",
+    desc: "Sand & Orange",
+    metaColor: "#faf8f5"
+  },
+  "apple-fitness": {
+    id: "apple-fitness",
+    name: "Apple Fitness",
+    type: "light",
+    desc: "Silver & Blue",
+    metaColor: "#f1f5f9"
+  },
+  "titanium-slate": {
+    id: "titanium-slate",
+    name: "Titanium Slate",
+    type: "dark",
+    desc: "Graphite & Orange",
+    metaColor: "#121316"
+  },
+  "cyber-hud": {
+    id: "cyber-hud",
+    name: "Cyber HUD",
+    type: "dark",
+    desc: "Navy & Cyan",
+    metaColor: "#0b0f17"
+  },
+  "rogue-iron": {
+    id: "rogue-iron",
+    name: "Rogue Iron",
+    type: "dark",
+    desc: "Matte & Crimson",
+    metaColor: "#0e0e11"
+  }
+};
+
+var DEFAULT_THEME = "nike-volt";
+
 var DEFAULT_EXERCISES = [
   { id: "bench-press", name: "Barbell Bench Press", cat: "Chest" },
   { id: "incline-db-press", name: "Incline Chest Press Machine", cat: "Chest" },

@@ -605,6 +605,12 @@ function renderSettingsView() {
       btn.classList.toggle("active", btn.getAttribute("data-unit") === state.unit);
     });
   }
+
+  // Update active state in theme buttons
+  var themeBtns = document.querySelectorAll(".theme-opt");
+  themeBtns.forEach(function (btn) {
+    btn.classList.toggle("active", btn.getAttribute("data-theme-id") === state.theme);
+  });
 }
 
 profileNameInput.addEventListener("input", function (e) {
@@ -639,6 +645,31 @@ if (settingsUnitToggle) {
   });
 }
 
+/* ---------------- Theme Switching Listeners ---------------- */
+var themeOpts = document.querySelectorAll(".theme-opt");
+themeOpts.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var themeId = btn.getAttribute("data-theme-id");
+    if (!THEMES[themeId] || state.theme === themeId) return;
+    state.theme = themeId;
+    save();
+    applyTheme(state.theme);
+    renderSettingsView();
+  });
+});
+
+var quickThemeToggleBtn = document.getElementById("themeQuickBtn");
+if (quickThemeToggleBtn) {
+  quickThemeToggleBtn.addEventListener("click", function () {
+    var current = THEMES[state.theme] || THEMES[DEFAULT_THEME];
+    var nextTheme = current.type === "light" ? "titanium-slate" : "nike-volt";
+    state.theme = nextTheme;
+    save();
+    applyTheme(state.theme);
+    renderSettingsView();
+  });
+}
+
 document.getElementById("exportDataBtn").addEventListener("click", function () {
   var dataBlob = new Blob([JSON.stringify(state, null, 2)], {
     type: "application/json"
@@ -670,6 +701,7 @@ document.getElementById("importDataInput").addEventListener("change", function (
         if (!state.profile) state.profile = { name: "", weight: "" };
         if (!state.videoOverrides) state.videoOverrides = {};
         if (!state.unit) state.unit = "kg";
+        if (!state.theme || !THEMES[state.theme]) state.theme = DEFAULT_THEME;
 
         invalidateExCache();
         forceSave();

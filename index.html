@@ -13,6 +13,19 @@
 <link rel="icon" type="image/png" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f3f4f6" id="themeColorMeta">
+<script>
+  (function() {
+    try {
+      var raw = localStorage.getItem("ironlog.v2");
+      var t = raw ? JSON.parse(raw).theme : null;
+      if (!t) t = "nike-volt";
+      document.documentElement.setAttribute("data-theme", t);
+    } catch(e) {
+      document.documentElement.setAttribute("data-theme", "nike-volt");
+    }
+  })();
+</script>
 
 <!-- Stylesheet -->
 <link rel="stylesheet" href="css/styles.css">
@@ -28,6 +41,9 @@
           <div class="date" id="todayLabel"></div>
         </div>
       </div>
+    </div>
+    <div class="header-right">
+      <button class="theme-quick-btn" id="themeQuickBtn" aria-label="Toggle Light/Dark Theme" title="Toggle Theme">🌙</button>
     </div>
   </header>
 
@@ -124,6 +140,81 @@
           <button data-unit="kg">KG</button>
           <button data-unit="lb">LB</button>
         </div>
+      </div>
+    </div>
+
+    <div class="section-title">Theme & Appearance</div>
+    <div class="profile-card">
+      <div class="theme-group-label">☀️ Light Modes</div>
+      <div class="theme-grid" id="themeGridLight">
+        <button class="theme-opt" data-theme-id="nike-volt">
+          <div class="theme-opt-preview" style="background:#f3f4f6; border-color:#e2e4e9;">
+            <span class="theme-dot" style="background:#ffffff; border:1px solid #e2e4e9;"></span>
+            <span class="theme-dot" style="background:#16a34a;"></span>
+            <span class="theme-dot" style="background:#111827;"></span>
+          </div>
+          <div class="theme-opt-name">Nike Volt</div>
+          <div class="theme-opt-desc">Chalk & Green</div>
+          <div class="theme-opt-check">✓</div>
+        </button>
+
+        <button class="theme-opt" data-theme-id="strava-blaze">
+          <div class="theme-opt-preview" style="background:#faf8f5; border-color:#e7e2d9;">
+            <span class="theme-dot" style="background:#ffffff; border:1px solid #e7e2d9;"></span>
+            <span class="theme-dot" style="background:#ea580c;"></span>
+            <span class="theme-dot" style="background:#1c1917;"></span>
+          </div>
+          <div class="theme-opt-name">Strava Blaze</div>
+          <div class="theme-opt-desc">Sand & Orange</div>
+          <div class="theme-opt-check">✓</div>
+        </button>
+
+        <button class="theme-opt" data-theme-id="apple-fitness">
+          <div class="theme-opt-preview" style="background:#f1f5f9; border-color:#d8e0ea;">
+            <span class="theme-dot" style="background:#ffffff; border:1px solid #d8e0ea;"></span>
+            <span class="theme-dot" style="background:#2563eb;"></span>
+            <span class="theme-dot" style="background:#0f172a;"></span>
+          </div>
+          <div class="theme-opt-name">Apple Fitness</div>
+          <div class="theme-opt-desc">Silver & Blue</div>
+          <div class="theme-opt-check">✓</div>
+        </button>
+      </div>
+
+      <div class="theme-group-label" style="margin-top:14px;">🌙 Dark Modes</div>
+      <div class="theme-grid" id="themeGridDark">
+        <button class="theme-opt" data-theme-id="titanium-slate">
+          <div class="theme-opt-preview" style="background:#121316; border-color:#2c303d;">
+            <span class="theme-dot" style="background:#1a1c23; border:1px solid #2c303d;"></span>
+            <span class="theme-dot" style="background:#ff6b35;"></span>
+            <span class="theme-dot" style="background:#f8fafc;"></span>
+          </div>
+          <div class="theme-opt-name">Titanium Slate</div>
+          <div class="theme-opt-desc">Graphite & Orange</div>
+          <div class="theme-opt-check">✓</div>
+        </button>
+
+        <button class="theme-opt" data-theme-id="cyber-hud">
+          <div class="theme-opt-preview" style="background:#0b0f17; border-color:#222d42;">
+            <span class="theme-dot" style="background:#121824; border:1px solid #222d42;"></span>
+            <span class="theme-dot" style="background:#00d2ff;"></span>
+            <span class="theme-dot" style="background:#f0f6fc;"></span>
+          </div>
+          <div class="theme-opt-name">Cyber HUD</div>
+          <div class="theme-opt-desc">Navy & Cyan</div>
+          <div class="theme-opt-check">✓</div>
+        </button>
+
+        <button class="theme-opt" data-theme-id="rogue-iron">
+          <div class="theme-opt-preview" style="background:#0e0e11; border-color:#292a36;">
+            <span class="theme-dot" style="background:#16171d; border:1px solid #292a36;"></span>
+            <span class="theme-dot" style="background:#f43f5e;"></span>
+            <span class="theme-dot" style="background:#ffffff;"></span>
+          </div>
+          <div class="theme-opt-name">Rogue Iron</div>
+          <div class="theme-opt-desc">Matte & Crimson</div>
+          <div class="theme-opt-check">✓</div>
+        </button>
       </div>
     </div>
     

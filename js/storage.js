@@ -2,6 +2,22 @@
  * Iron Log - State Management, Storage & Helpers
  */
 
+function applyTheme(themeId) {
+  if (typeof THEMES === "undefined" || !THEMES[themeId]) {
+    themeId = typeof DEFAULT_THEME !== "undefined" ? DEFAULT_THEME : "nike-volt";
+  }
+  document.documentElement.setAttribute("data-theme", themeId);
+  var metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme && typeof THEMES !== "undefined" && THEMES[themeId]) {
+    metaTheme.setAttribute("content", THEMES[themeId].metaColor);
+  }
+  var quickBtn = document.getElementById("themeQuickBtn");
+  if (quickBtn && typeof THEMES !== "undefined" && THEMES[themeId]) {
+    quickBtn.textContent = THEMES[themeId].type === "light" ? "🌙" : "☀️";
+    quickBtn.setAttribute("title", THEMES[themeId].type === "light" ? "Switch to Dark Mode" : "Switch to Light Mode");
+  }
+}
+
 function loadState() {
   try {
     var raw = localStorage.getItem(LS_KEY);
@@ -14,7 +30,8 @@ function loadState() {
     logs: {},
     weeklyPlan: { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] },
     dayLabels: { 0: "", 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" },
-    videoOverrides: {}
+    videoOverrides: {},
+    theme: typeof DEFAULT_THEME !== "undefined" ? DEFAULT_THEME : "nike-volt"
   };
 }
 
@@ -26,6 +43,11 @@ if (!state.dayLabels) state.dayLabels = { 0: "", 1: "", 2: "", 3: "", 4: "", 5: 
 if (!state.profile) state.profile = { name: "", weight: "" };
 if (!state.videoOverrides) state.videoOverrides = {};
 if (!state.unit) state.unit = "kg";
+if (!state.theme || (typeof THEMES !== "undefined" && !THEMES[state.theme])) {
+  state.theme = typeof DEFAULT_THEME !== "undefined" ? DEFAULT_THEME : "nike-volt";
+}
+
+applyTheme(state.theme);
 
 var saveTimer = null;
 function save() {
