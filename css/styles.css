@@ -1069,20 +1069,27 @@ header {
   color: var(--danger);
 }
 .btn-watch-lib {
-  background: var(--accent-subtle);
-  border: 1px solid var(--accent-dim);
-  color: var(--accent);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
   border-radius: 8px;
-  padding: 6px 10px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.1s, background 0.15s;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+.btn-watch-lib:hover {
+  background: var(--surface3);
+  color: var(--text);
+  border-color: var(--border-focus);
 }
 .btn-watch-lib:active {
-  transform: scale(0.95);
-  background: var(--accent-dim);
+  transform: scale(0.92);
 }
 
 .empty-state {
