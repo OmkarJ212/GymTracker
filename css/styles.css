@@ -867,8 +867,7 @@ header {
   transition: height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .trend-bar.current {
-  background: linear-gradient(180deg, var(--accent), var(--accent-glow));
-  box-shadow: 0 0 12px var(--accent-glow);
+  background: var(--accent);
 }
 .trend-lbl {
   font-size: 10.5px;
