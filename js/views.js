@@ -729,7 +729,7 @@ var quickThemeToggleBtn = document.getElementById("themeQuickBtn");
 if (quickThemeToggleBtn) {
   quickThemeToggleBtn.addEventListener("click", function () {
     var current = THEMES[state.theme] || THEMES[DEFAULT_THEME];
-    var nextTheme = current.type === "light" ? "titanium-slate" : "nike-volt";
+    var nextTheme = current.type === "light" ? "onyx-volt" : "nike-volt";
     state.theme = nextTheme;
     save();
     applyTheme(state.theme);

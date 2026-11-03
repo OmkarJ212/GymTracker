@@ -25,11 +25,11 @@ var THEMES = {
     desc: "Silver & Blue",
     metaColor: "#f3f5f9"
   },
-  "titanium-slate": {
-    id: "titanium-slate",
-    name: "Titanium Slate",
+  "onyx-volt": {
+    id: "onyx-volt",
+    name: "Onyx Volt",
     type: "dark",
-    desc: "Graphite & Orange",
+    desc: "Onyx & Green",
     metaColor: "#0d0e12"
   },
   "cyber-hud": {

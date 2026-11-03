@@ -49,8 +49,11 @@ if (!state.dayLabels) state.dayLabels = { 0: "", 1: "", 2: "", 3: "", 4: "", 5: 
 if (!state.profile) state.profile = { name: "", weight: "" };
 if (!state.videoOverrides) state.videoOverrides = {};
 if (!state.unit) state.unit = "kg";
-if (!state.theme || (typeof THEMES !== "undefined" && !THEMES[state.theme])) {
+if (state.theme === "titanium-slate" || !state.theme || (typeof THEMES !== "undefined" && !THEMES[state.theme])) {
   state.theme = typeof DEFAULT_THEME !== "undefined" ? DEFAULT_THEME : "nike-volt";
+  try {
+    localStorage.setItem("ironlog.theme", state.theme);
+  } catch (e) {}
 }
 
 applyTheme(state.theme);
