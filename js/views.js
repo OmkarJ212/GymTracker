@@ -493,7 +493,23 @@ function renderPRView() {
   listEl.innerHTML = "";
 
   if (!filtered.length) {
-    listEl.innerHTML = '<div class="empty-state">No records found. Keep pushing!</div>';
+    var isSearching = prSearchTerm.length > 0;
+    listEl.innerHTML =
+      '<div class="empty-state">' +
+      '<div class="empty-icon">' +
+      '<svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>' +
+      '</svg>' +
+      '</div>' +
+      '<div style="font-weight:700; color:var(--text); font-size:15px; margin-bottom:6px;">' +
+      (isSearching ? "No Matching Records" : "No Personal Records Yet") +
+      '</div>' +
+      '<div style="font-size:13px; color:var(--text-dim); max-width:280px; margin:0 auto; line-height:1.45;">' +
+      (isSearching
+        ? "Try a different search term or clear the filter."
+        : "Log your sets in Today's Session to automatically track your all-time PRs here.") +
+      '</div>' +
+      '</div>';
     return;
   }
 
