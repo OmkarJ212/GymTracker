@@ -662,21 +662,30 @@ header {
   height: 7px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 8px var(--accent-glow);
 }
 .day-label-input {
   background: none;
-  border: none;
+  border: 1px dashed transparent;
+  border-radius: 6px;
   color: var(--text-dim);
-  font-size: 12.5px;
+  font-size: 12px;
   text-align: right;
   outline: none;
   max-width: 140px;
-  padding: 4px 0;
-  font-weight: 500;
+  padding: 3px 6px;
+  font-weight: 600;
+  transition: all 0.15s ease;
 }
 .day-label-input::placeholder {
   color: var(--text-faint);
+  opacity: 0.6;
+  font-weight: 500;
+}
+.day-label-input:focus,
+.day-label-input:hover {
+  background: var(--surface2);
+  border-color: var(--border);
+  color: var(--text);
 }
 
 .day-chips {

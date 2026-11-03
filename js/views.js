@@ -205,7 +205,8 @@ function renderPlanView() {
 
     var labelInput = document.createElement("input");
     labelInput.className = "day-label-input";
-    labelInput.placeholder = "e.g. Push day";
+    labelInput.placeholder = "Add label";
+    labelInput.title = "Set focus (e.g. Push, Pull, Legs)";
     labelInput.value = state.dayLabels[dayIdx] || "";
     labelInput.addEventListener("input", function () {
       state.dayLabels[dayIdx] = labelInput.value;
