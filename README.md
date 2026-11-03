@@ -1,4 +1,4 @@
-Iron Log 🏋️
+# Iron Log
 Iron Log is a lightning-fast, offline-first Progressive Web App (PWA) designed for seamless gym tracking. Built entirely with vanilla web technologies, it offers a zero-latency logging experience without requiring an internet connection or a backend database.
 
 Key Features
