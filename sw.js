@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iron-log-v5';
+const CACHE_NAME = 'iron-log-v7';
 const ASSETS = [
   './',
   './index.html',
@@ -33,21 +33,34 @@ self.addEventListener('fetch', (e) => {
   // Do not intercept external / third-party requests (e.g. YouTube embeds)
   if (!e.request.url.startsWith(self.location.origin)) return;
 
-  e.respondWith(
-    caches.match(e.request).then((cached) => {
-      var fetchPromise = fetch(e.request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-            var responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(e.request, responseToCache);
-            });
+  // For HTML documents, always fetch fresh from network first so changes are immediate
+  if (e.request.mode === 'navigate' || e.request.destination === 'document') {
+    e.respondWith(
+      fetch(e.request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            var copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(e.request, copy));
           }
-          return networkResponse;
+          return response;
         })
-        .catch(() => cached);
+        .catch(() => caches.match(e.request))
+    );
+    return;
+  }
 
-      return cached || fetchPromise;
-    })
+  // Network-first for styles and scripts with query params, or cache fallback
+  e.respondWith(
+    fetch(e.request)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          var responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, responseToCache);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() => caches.match(e.request))
   );
 });
