@@ -374,10 +374,14 @@ header {
 }
 .dock-tab.active {
   color: var(--accent);
-  background: var(--accent-subtle);
+  background: transparent;
 }
 .dock-tab.active .dock-icon {
-  transform: translateY(-1px);
+  transform: translateY(-1.5px);
+}
+.dock-tab.active .dock-label {
+  color: var(--accent);
+  font-weight: 800;
 }
 
 /* ==================== VIEWS CONTAINER ==================== */
